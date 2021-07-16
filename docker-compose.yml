@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  timeline-font:
+    image: timeline-font
+    ports:
+      - "10002:10002"
+
+  timeline-backend:
+    image: timeline-backend
+    ports:
+      - "10001:10001"
