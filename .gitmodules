@@ -1,6 +1,6 @@
-[submodule "timeline-font"]
-	path = timeline-font
-	url = https://github.com/my-Sakura/time-line-font.git
-[submodule "timeline-backend"]
-	path = timeline-backend
+[submodule "time-line-backend"]
+	path = time-line-backend
 	url = https://github.com/my-Sakura/time-line-backend.git
+[submodule "time-line-font"]
+	path = time-line-font
+	url = https://github.com/my-Sakura/time-line-font.git
