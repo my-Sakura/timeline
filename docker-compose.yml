@@ -1,12 +1,39 @@
-version: "3.8"
+version: "3.9"
 
 services:
-  timeline-font:
-    image: timeline-font
-    ports:
-      - "10002:10002"
-
-  timeline-backend:
-    image: timeline-backend
+  front:
+    image: timeline-front
     ports:
       - "10001:10001"
+    networks:
+      - project-net
+    restart: always
+
+  backend:
+    image: timeline-backend
+    ports:
+      - "10002:10002"
+    networks:
+      - project-net
+    restart: always
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: mysql-timeline
+    image: mysql:5.7
+    ports:
+      - "127.0.0.1:6666:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=timeline
+    volumes:
+      - "/root/mysql/data:/var/lib/mysql"
+      - "/root/mysql/my.cnf:/etc/mysql/my.cnf"
+    networks:
+      - project-net
+    restart: always
+
+networks:
+  project-net:
+    driver: bridge

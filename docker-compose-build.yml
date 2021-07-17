@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  front:
+    build: ./time-line-font/deploy
+    ports:
+      - "10001:10001"
+    networks:
+      - project-net
+    restart: always
+
+  backend:
+    build: ./time-line-backend
+    ports:
+      - "10002:10002"
+    networks:
+      - project-net
+    restart: always
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: mysql-timeline
+    image: mysql:5.7
+    ports:
+      - "127.0.0.1:6666:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=timeline
+    volumes:
+      - "/root/project/time-line/mysql/data:/var/lib/mysql"
+      - "/root/project/time-line/mysql/my.cnf:/etc/mysql/my.cnf"
+      - "/root/project/time-line/mysql/error.log:/var/log/mysql"
+    networks:
+      - project-net
+    restart: always
+
+networks:
+  project-net:
+    driver: bridge
